@@ -1,0 +1,85 @@
+<!-- accounts/templates/accounts/register.html -->
+{% comment %} {% extends 'base.html' %} {# Assumindo que tem um template base #} {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar-se</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #d9e6f8ff;
+            color: #333;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 80px auto;
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        button {
+            background: #3498db;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            color: #3498db;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📝 Registrar-se</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Criar conta</button>
+        </form>
+        <a href="{% url 'login' %}">Já tem conta? Faça login</a>
+    </div>
+</body>
+</html>
