@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tarefas</title>
+</head>
+<body>
+    <h1>📋 Minhas Tarefas</h1>
+
+    <a href="{% url 'form_add' %}">➕ Nova Tarefa</a>
+
+    <div class="container">
+        <!-- Coluna N_feito -->
+        <div class="coluna">
+            <h2>Não feito</h2>
+            <ul>
+                {% for task in tasks %}
+                    {% if task.status == "N_FEITO" %}
+                        <li>
+                            <strong>{{ task.title }}</strong><br>
+                            Descrição: {{ task.descricao }}<br>
+                            Prazo: {{ task.prazo }}<br>
+                            <a href="{% url 'update' task.pk %}">Editar</a>
+                            <a href="{% url 'delete' task.pk %}">Excluir</a>
+                        </li>
+                    {% endif %}
+                {% empty %}
+                    <li>Nenhuma tarefa.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- coluna Fazendo -->
+        <div class="coluna">
+            <h2>Fazendo</h2>
+            <ul>
+                {% for task in tasks %}
+                    {% if task.status == "FAZENDO" %}
+                        <li>
+                            <strong>{{ task.title }}</strong><br>
+                            Descrição: {{ task.descricao }}<br>
+                            Prazo: {{ task.prazo }}<br>
+                            <a href="{% url 'update' task.pk %}">Editar</a>
+                            <a href="{% url 'delete' task.pk %}">Excluir</a>
+                        </li>
+                    {% endif %}
+                {% empty %}
+                    <li>Nenhuma tarefa.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Coluna Feito -->
+        <div class="coluna">
+            <h2>Feito</h2>
+            <ul>
+                {% for task in tasks %}
+                    {% if task.status == "FEITO" %}
+                        <li>
+                            <strong>{{ task.title }}</strong><br>
+                            Descrição: {{ task.descricao }}<br>
+                            Prazo: {{ task.prazo }}<br>
+                            <a href="{% url 'update' task.pk %}">Editar</a>
+                            <a href="{% url 'delete' task.pk %}">Excluir</a>
+                        </li>
+                    {% endif %}
+                {% empty %}
+                    <li>Nenhuma tarefa.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+<style>
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* espaço entre as colunas */
+    margin-top: 20px;
+}
+
+.coluna {
+    flex: 1; /* cada coluna ocupa 1/3 da largura */
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    word-wrap: break-word;   /* força a quebra de palavras longas */
+    overflow-wrap: break-word; /* compatibilidade */
+}
+
+.coluna h2 {
+    text-align: center;
+}
+
+.coluna ul {
+    list-style: none;
+    padding: 0;
+}
+
+.coluna li {
+    margin-bottom: 10px;
+    padding: 5px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+</style>
+
+<style>
+    {% comment %} COR DO FUNDO {% endcomment %}
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #d9e6f8ff; 
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+    color: #2c3e50;
+}
+
+a {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Layout principal */
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Colunas de tarefas */
+.coluna {
+    flex: 1;
+    min-height: 400px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    overflow-wrap: break-word;
+}
+
+{% comment %} /* CORES DAS COLUNAS */ {% endcomment %}
+.coluna:nth-child(1) {
+    background: #fdaeaeff; /* Não feito - vermelho claro */
+}
+
+.coluna:nth-child(2) {
+    background: #ffeab5ff; /* Fazendo - amarelo claro */
+}
+
+.coluna:nth-child(3) {
+    background: #baffbaff; /* Feito - verde claro */
+}
+
+.coluna h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+
+/* Estilo das tarefas */
+.coluna ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.coluna li {
+    background: #ffffffcc;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.coluna li strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1
+}
