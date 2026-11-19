@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar / Editar Tarefa</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #d9e6f8ff;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            color: #34495e;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        button {
+            background: #3498db;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{% if tarefa %}Editar Tarefa{% else %}Adicionar Tarefa{% endif %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label>Título:</label>
+            <input type="text" name="title" value="{{ tarefa.title|default:'' }}">
+
+            <label>Descrição:</label>
+            <textarea name="descricao">{{ tarefa.descricao|default:'' }}</textarea>
+
+            <label>Prazo:</label>
+            <input type="datetime-local" name="prazo"
+                   value="{{ tarefa.prazo|date:'Y-m-d\\TH:i'|default:'' }}">
+
+            <label>Status:</label>
+            <select name="status">
+                <option value="N_FEITO" {% if tarefa.status == "N_FEITO" %}selected{% endif %}>Não feito</option>
+                <option value="FAZENDO" {% if tarefa.status == "FAZENDO" %}selected{% endif %}>Fazendo</option>
+                <option value="FEITO" {% if tarefa.status == "FEITO" %}selected{% endif %}>Feito</option>
+            </select>
+
+            <button type="submit">Salvar</button>
+        </form>
+        <a href="{% url 'lista_de_tarefas' %}">⬅ Voltar para lista</a>
+    </div>
+</body>
+</html>
